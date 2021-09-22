@@ -65,6 +65,7 @@ jobs:
       fail-fast: false
       matrix:
         IMAGES:
+        - "library/ruby/2.0 library/ruby/2.0-slim"
         - "library/ruby/latest library/ruby/slim library/ruby/2 library/ruby/2-slim library/ruby/2.5 library/ruby/2.5-slim library/ruby/2.4"
         - "library/ruby/2.4-slim library/ruby/2.3 library/ruby/2.3-slim library/ruby/2.1 library/ruby/2.1-slim library/ruby/2.2 library/ruby/2.2-slim"
         - "library/ruby/2.4-alpine library/ruby/2.1-alpine library/ruby/2.2-alpine library/ruby/alpine library/ruby/2-alpine library/ruby/2.3-alpine library/ruby/2.5-alpine"

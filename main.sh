@@ -281,6 +281,8 @@ NODE_TOP="$(echo $(find_top_node))"
 MAILU_VERSiON=1.7
 
 BATCHED_IMAGES="\
+library/ruby/2.0\
+ library/ruby/2.0-slim::3
 library/ruby/latest\
  library/ruby/slim\
  library/ruby/2\
