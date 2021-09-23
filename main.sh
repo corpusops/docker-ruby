@@ -255,7 +255,7 @@ CURRENT_TS=$(date +%s)
 IMAGES_SKIP_NS="(mailhog|postgis|pgrouting(-bare)?|^library|dejavu|minio/minio|minio/mc)"
 IMAGES_SKIP_NS=""
 
-SKIPPED_TAGS="$SKIPPED_TAGS|wheezy|:1"
+SKIPPED_TAGS="$SKIPPED_TAGS|wheezy|:(1|2.0)"
 
 default_images="
 library/ruby
@@ -281,8 +281,6 @@ NODE_TOP="$(echo $(find_top_node))"
 MAILU_VERSiON=1.7
 
 BATCHED_IMAGES="\
-library/ruby/2.0\
- library/ruby/2.0-slim::3
 library/ruby/latest\
  library/ruby/slim\
  library/ruby/2\
