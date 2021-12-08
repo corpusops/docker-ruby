@@ -67,8 +67,7 @@ jobs:
         IMAGES:
         - "library/ruby/latest library/ruby/slim library/ruby/2 library/ruby/2-slim library/ruby/2.5 library/ruby/2.5-slim library/ruby/2.4"
         - "library/ruby/2.4-slim library/ruby/2.3 library/ruby/2.3-slim library/ruby/2.1 library/ruby/2.1-slim library/ruby/2.2 library/ruby/2.2-slim"
-        - "library/ruby/1 library/ruby/1-slim library/ruby/1.9 library/ruby/1.9-slim library/ruby/2.4-alpine library/ruby/2.1-alpine library/ruby/2.2-alpine"
-        - "library/ruby/alpine library/ruby/2-alpine library/ruby/2.3-alpine library/ruby/2.5-alpine"
+        - "library/ruby/2.4-alpine library/ruby/2.1-alpine library/ruby/2.2-alpine library/ruby/alpine library/ruby/2-alpine library/ruby/2.3-alpine library/ruby/2.5-alpine"
         #- "corpusops/test/a corpusops/test/b corpusops/test/c"
         # all images that werent explicitly told to be built would be built in the next batches
         # we span them onto N jobs

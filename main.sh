@@ -223,7 +223,7 @@ NOREFRESH=${NOREFRESH-}
 NBPARALLEL=${NBPARALLEL-2}
 SKIP_IMAGES_SCAN=${SKIP_IMAGES_SCAN-}
 SKIP_MINOR_ES="((elasticsearch):.*([0-5]\.?){3}(-32bit.*)?)"
-SKIP_MINOR_ES2="$SKIP_MINOR_ES|(elasticsearch:(5\.[0-4]\.)|(6\.8\.[0-8])|(6\.[0-7])|(7\.9\.[0-2])|(7\.[0-8]))"
+SKIP_MINOR_ES2="$SKIP_MINOR_ES|(elasticsearch:(1.[6-7]\.|5\.[0-4]\.|5\.6\.[0-7]|6\.8\.[0-8]|6\.[0-7]\.|7\.9\.[0-2]|7\.[0-8]).*(-alpine)?$)"
 # SKIP_MINOR_NGINX="((nginx):.*[0-9]+\.[0-9]+\.[0-9]+(-32bit.*)?)"
 MINOR_IMAGES="(golang|mariadb|memcached|mongo|mysql|nginx|node|php|postgres|python|rabbitmq|redis|redmine|ruby|solr)"
 SKIP_MINOR_OS="$MINOR_IMAGES:.*alpine[0-9].*"
@@ -241,19 +241,21 @@ SKIP_OS="$SKIP_OS|(centos:(centos)?5)"
 SKIP_OS="$SKIP_OS|(fedora.*(modular|21))"
 SKIP_OS="$SKIP_OS|(traefik:((camembert|cancoillotte|cantal|chevrotin|faisselle|livarot|maroilles|montdor|morbier|picodon|raclette|reblochon|roquefort|tetedemoine)(-alpine)?|rc.*|(v?([0-9]+\.[0-9]+\.).*$)))"
 SKIP_OS="$SKIP_OS|(minio.*(armhf|aarch))"
-SKIP_PHP="(php:(5.4|5.3|.*(RC|-rc-).*))"
 SKIP_OS="$SKIP_OS)"
+SKIP_PHP="(php:(.*(RC|-rc-).*))"
 SKIP_WINDOWS="(.*(nanoserver|windows))"
 SKIP_MISC="(-?(on.?build)|pgrouting.*old)|seafile-mc:(7.0.1|7.0.2|7.0.3|7.0.4|7.0.5|7.1.3)|(dejavu:(v.*|1\..\.?.?|2\..\..)|3\.[1-3]\..|3.0.0|.*alpha.*$)"
 SKIP_NODE="((node):.*alpine3\..?.?)"
 SKIP_TF="(tensorflow.serving:[0-9].*)"
-SKIP_MINIO="(k8s-operator|((minio|mc):(RELEASE.)?[0-9]{4}-.{7}))"
+SKIP_MINIO="(k8s-operator|((minio\/mc):(RELEASE.)?[0-9]{4}-.{7}))"
 SKIP_MAILU="(mailu.*(feat|patch|merg|refactor|revert|upgrade|fix-|pr-template))"
 SKIP_DOCKER="docker(\/|:)([0-9]+\.[0-9]+\.|17|18.0[1-6]|1$|1(\.|-)).*"
-SKIPPED_TAGS="$SKIP_TF|$SKIP_MINOR_OS|$SKIP_NODE|$SKIP_DOCKER|$SKIP_MINIO|$SKIP_MAILU|$SKIP_MINOR_ES2|$SKIP_MINOR|$SKIP_PRE|$SKIP_OS|$SKIP_PHP|$SKIP_WINDOWS|$SKIP_MISC"
+SKIPPED_TAGS="$SKIP_MINOR_ES2|$SKIP_MAILU|$SKIP_MINOR|$SKIP_DOCKER|$SKIP_MINIO|$SKIP_TF|$SKIP_MINOR_OS|$SKIP_NODE|$SKIP_PRE|$SKIP_OS|$SKIP_PHP|$SKIP_WINDOWS|$SKIP_MISC"
 CURRENT_TS=$(date +%s)
-IMAGES_SKIP_NS="((mailhog|postgis|pgrouting(-bare)?|^library|dejavu|(minio/(minio|mc))))"
+IMAGES_SKIP_NS="(mailhog|postgis|pgrouting(-bare)?|^library|dejavu|minio/minio|minio/mc)"
+IMAGES_SKIP_NS=""
 
+SKIPPED_TAGS="$SKIPPED_TAGS|wheezy|:1"
 
 default_images="
 library/ruby
@@ -293,22 +295,14 @@ library/ruby/latest\
  library/ruby/2.1-slim\
  library/ruby/2.2\
  library/ruby/2.2-slim\
- library/ruby/1\
- library/ruby/1-slim\
- library/ruby/1.9\
- library/ruby/1.9-slim\
  library/ruby/2.4-alpine\
  library/ruby/2.4-slim-alpine\
- library/ruby/1.9-alpine\
- library/ruby/1.9-slim-alpine\
  library/ruby/2.1-alpine\
  library/ruby/2.1-slim-alpine\
  library/ruby/2.2-alpine\
  library/ruby/2.2-slim-alpine\
  library/ruby/alpine\
  library/ruby/slim-alpine\
- library/ruby/1-alpine\
- library/ruby/1-slim-alpine\
  library/ruby/2-alpine\
  library/ruby/2-slim-alpine\
  library/ruby/2.3-alpine\
@@ -606,7 +600,9 @@ do_refresh_images() {
     while read images;do
         for image in $images;do
             if [[ -n $image ]];then
-                make_tags $image
+                if [[ -z "${SKIP_MAKE_TAGS-}" ]];then
+                    make_tags $image
+                fi
                 do_clean_tags $image
             fi
         done
