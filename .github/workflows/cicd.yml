@@ -65,26 +65,18 @@ jobs:
       fail-fast: false
       matrix:
         IMAGES:
-        - "library/ruby/latest library/ruby/slim library/ruby/2 library/ruby/2-slim library/ruby/2.5 library/ruby/2.5-slim library/ruby/2.4"
-        - "library/ruby/2.4-slim library/ruby/2.3 library/ruby/2.3-slim library/ruby/2.1 library/ruby/2.1-slim library/ruby/2.2 library/ruby/2.2-slim"
-        - "library/ruby/2.4-alpine library/ruby/2.1-alpine library/ruby/2.2-alpine library/ruby/alpine library/ruby/2-alpine library/ruby/2.3-alpine library/ruby/2.5-alpine"
+        - "library/ruby/alpine library/ruby/latest library/ruby/slim"
+        - "library/ruby/2.7 library/ruby/2.7-alpine library/ruby/2.7-slim"
+        - "library/ruby/2 library/ruby/2-alpine library/ruby/2-slim"
+        - "library/ruby/3.3 library/ruby/3.3-alpine library/ruby/3.3-slim library/ruby/3 library/ruby/3-alpine library/ruby/3-slim"
+        - "library/ruby/2.0 library/ruby/2.0-slim library/ruby/2.1 library/ruby/2.1-alpine library/ruby/2.1-slim library/ruby/2.2 library/ruby/2.2-alpine library/ruby/2.2-slim library/ruby/2.3 library/ruby/2.3-alpine library/ruby/2.3-slim"
+        - "library/ruby/2.4 library/ruby/2.4-alpine library/ruby/2.4-slim library/ruby/2.5 library/ruby/2.5-alpine library/ruby/2.5-slim library/ruby/2.6 library/ruby/2.6-alpine library/ruby/2.6-slim"
+        - "library/ruby/3.0 library/ruby/3.0-alpine library/ruby/3.0-slim library/ruby/3.1 library/ruby/3.1-alpine library/ruby/3.1-slim library/ruby/3.2 library/ruby/3.2-alpine library/ruby/3.2-slim"
         #- "corpusops/test/a corpusops/test/b corpusops/test/c"
         # all images that werent explicitly told to be built would be built in the next batches
         # we span them onto N jobs
-        - "zleftover:1/14"
-        - "zleftover:2/14"
-        - "zleftover:3/14"
-        - "zleftover:4/14"
-        - "zleftover:5/14"
-        - "zleftover:6/14"
-        - "zleftover:7/14"
-        - "zleftover:8/14"
-        - "zleftover:9/14"
-        - "zleftover:10/14"
-        - "zleftover:11/14"
-        - "zleftover:12/14"
-        - "zleftover:13/14"
-        - "zleftover:14/14"
+        - "zleftover:1/2"
+        - "zleftover:2/2"
 on:
   push:
   workflow_dispatch:
